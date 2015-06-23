@@ -14,7 +14,7 @@ try{
       publicKey:  Meteor.settings.BRAIN_TREE.PUBLIC_KEY,
       privateKey: Meteor.settings.BRAIN_TREE.PRIVATE_KEY
     });
-    return bt.customer.create(config);
+    return BrainTreeConnect.customer.create(config);
 } catch(error){
     throw new Meteor.Error(1001, error.message);
 }
