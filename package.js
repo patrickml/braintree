@@ -1,6 +1,6 @@
 Package.describe({
   name: 'patrickml:braintree',
-  version: '1.0.1',
+  version: '1.0.2',
   // Brief, one-line summary of the package.
   summary: 'Meteor JS wrapper for Braintree Payments.',
   // URL to the Git repository containing the source code for this package.
@@ -20,7 +20,7 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-  braintree: '1.26.0'
+  braintree: '1.27.0'
 });
 
 Package.onTest(function(api) {
