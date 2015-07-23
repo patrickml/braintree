@@ -8,17 +8,23 @@ A wrapper for Meteor style synchronous Braintree API calls.
 BrainTreeConnect = BrainTreeConnect(key);
 
 try{
-    var BrainTreeConnect = BrainTreeConnect({
+    var bt = BrainTreeConnect({
       environment: Braintree.Environment.Sandbox,
       merchantId: Meteor.settings.BRAIN_TREE.MERCHANT_ID,
       publicKey:  Meteor.settings.BRAIN_TREE.PUBLIC_KEY,
       privateKey: Meteor.settings.BRAIN_TREE.PRIVATE_KEY
     });
-    return BrainTreeConnect.customer.create(config);
+    return bt.customer.create(config);
 } catch(error){
     throw new Meteor.Error(1001, error.message);
 }
 ```
+
+## Client API ##
+In case you are wanting to use the client API to create the nonce token you should include the following script in your `head.html` file 
+~~~
+	<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+~~~
 
 ## Wrapped API ##
 
