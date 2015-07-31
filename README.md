@@ -5,16 +5,16 @@ A wrapper for Meteor style synchronous Braintree API calls.
 ## Example Usage ##
 
 ```javascript
-BrainTreeConnect = BrainTreeConnect(key);
 
 try{
-    var BrainTreeConnect = BrainTreeConnect({
-      environment: Braintree.Environment.Sandbox,
+    var bt = BrainTreeConnect({
+      //If you set an ENV variable for PRODUCTION you can dynamically change out sandbox and production
+      environment: process.env.PRODUCTION && Braintree.Environment.Production || Braintree.Environment.Sandbox,
       merchantId: Meteor.settings.BRAIN_TREE.MERCHANT_ID,
       publicKey:  Meteor.settings.BRAIN_TREE.PUBLIC_KEY,
       privateKey: Meteor.settings.BRAIN_TREE.PRIVATE_KEY
     });
-    return BrainTreeConnect.customer.create(config);
+    return bt.customer.create(config);
 } catch(error){
     throw new Meteor.Error(1001, error.message);
 }
@@ -65,3 +65,61 @@ This package wraps the methods below. These are all the methods that are listed 
 	 * [`search()`](https://developers.braintreepayments.com/javascript+node/reference/request/transaction/search)
 	 * [`submitForSettlement(transactionId)`](https://developers.braintreepayments.com/javascript+node/reference/request/transaction/submit-for-settlement)
 	 * [`void(transactionId)`](https://developers.braintreepayments.com/javascript+node/reference/request/transaction/void)
+
+##Webhooks (Example) ##
+
+This example uses Iron Router but you can you any server side routing package
+
+    Router.route('receiveMerchantUpdate', function () {
+    
+          // NodeJS request object
+          var request = this.request;
+    
+          // NodeJS  response object
+          var response = this.response;
+    
+          var bt_challenge = request.query.bt_challenge;
+    
+          var bt = BrainTreeConnect({
+            environment: process.env.PRODUCTION && Braintree.Environment.Production,
+            merchantId: Meteor.settings.BRAIN_TREE.MERCHANT_ID,
+            publicKey: Meteor.settings.BRAIN_TREE.PUBLIC_KEY,
+            privateKey: Meteor.settings.BRAIN_TREE.PRIVATE_KEY
+          });
+  
+          //If we are verifying the webhook
+          if(bt_challenge) {
+            return response.end(bt.webhookNotification.verify(bt_challenge));
+          } else {
+          
+    //Decode the request and perform the needed logic for the type of request
+     bt.webhookNotification.parse(request.body.bt_signature, request.body.bt_payload, function (err, webhookNotifiction) {
+              switch(webhookNotifiction.kind) {
+    
+                //Sub Merchant was Approved
+                case Braintree.WebhookNotification.Kind.SubMerchantAccountApproved:
+    
+                  //Find and Update the user
+                  Meteor.users.update({ 'profile.merchantAccount.id' :  webhookNotifiction.merchantAccount.id }, { $set : {
+                    'profile.merchantAccount' : webhookNotifiction.merchantAccount
+                  }});
+    
+                  console.log('Success');
+                  break;
+    
+                //Supplier was declined
+                case Braintree.WebhookNotification.Kind.SubMerchantAccountDeclined:
+                  console.log('Failed');
+                  break;
+              }
+    
+            });
+    
+            return response.end();
+          }
+        },
+        {
+          where: 'server',
+          path: 'hooks/processor/merchants'
+        });
+
