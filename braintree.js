@@ -13,7 +13,7 @@ BrainTreeConnect = function (key) {
     transaction : ['cancelRelease', 'cloneTransaction', 'find', 'holdInEscrow', 'refund', 'releaseFromEscrow', 'sale', 'search', 'submitForSettlement', 'void']
   };
 
-  BraintreeObj = new Braintree.connect(key);
+  BraintreeObj = Braintree.connect(key);
 
   _.each(resources, function (resource, key){
     _.each(resource, function (funcName){
