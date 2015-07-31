@@ -20,6 +20,12 @@ try{
 }
 ```
 
+## Client API ##
+In case you are wanting to use the client API to create the nonce token you should include the following script in your `head.html` file 
+~~~
+	<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+~~~
+
 ## Wrapped API ##
 
 This package wraps the methods below. These are all the methods that are listed in the [braintree-node](https://github.com/braintree/braintree_node) github documentation & the [braintree-website](https://developers.braintreepayments.com/javascript+node/start/hello-server) documentation.
@@ -122,4 +128,3 @@ This example uses Iron Router but you can you any server side routing package
           where: 'server',
           path: 'hooks/processor/merchants'
         });
-
