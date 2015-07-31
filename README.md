@@ -87,7 +87,7 @@ This example uses Iron Router but you can you any server side routing package
           var bt_challenge = request.query.bt_challenge;
     
           var bt = BrainTreeConnect({
-            environment: process.env.PRODUCTION && Braintree.Environment.Production,
+            environment: process.env.PRODUCTION && Braintree.Environment.Production || Braintree.Environment.Sandbox,
             merchantId: Meteor.settings.BRAIN_TREE.MERCHANT_ID,
             publicKey: Meteor.settings.BRAIN_TREE.PUBLIC_KEY,
             privateKey: Meteor.settings.BRAIN_TREE.PRIVATE_KEY
