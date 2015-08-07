@@ -1,8 +1,8 @@
 Package.describe({
   name: 'patrickml:braintree',
-  version: '1.0.3',
+  version: '1.0.4',
   // Brief, one-line summary of the package.
-  summary: 'Meteor JS wrapper for Braintree Payments.',
+  summary: 'Complete Sync wrapper for Braintree Payments.',
   // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/patrickml/braintree',
   // By default, Meteor will default to using README.md for documentation.
@@ -12,6 +12,12 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
+  api.use(
+    [
+      'underscore'
+    ],
+    ['client', 'server']);
+
   api.addFiles('braintree.js', "server");
   api.export([
     'Braintree',
