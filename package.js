@@ -1,6 +1,6 @@
 Package.describe({
   name: 'patrickml:braintree',
-  version: '1.0.4',
+  version: '1.29.0',
   // Brief, one-line summary of the package.
   summary: 'Complete Sync wrapper for Braintree Payments.',
   // URL to the Git repository containing the source code for this package.
