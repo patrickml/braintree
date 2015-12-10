@@ -26,7 +26,7 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-  braintree: '1.29.0'
+  braintree: '1.32.0'
 });
 
 Package.onTest(function(api) {
