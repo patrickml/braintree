@@ -25,5 +25,3 @@ BrainTreeConnect = function (key) {
 
   return BraintreeObj;
 };
-
-BrainTreeConnect.Environment = Braintree.Environment;
