@@ -8,6 +8,7 @@ BrainTreeConnect = function (key) {
     customer : ['create', 'delete', 'find', 'search', 'update'],
     merchantAccount : ['create', 'find', 'update'],
     paymentMethod : ['create', 'delete', 'find', 'update'],
+    paymentMethodNonce : ['create', 'find'],
     plan : ['all'],
     subscription : ['cancel', 'create', 'find', 'search', 'update'],
     transaction : ['cancelRelease', 'cloneTransaction', 'find', 'holdInEscrow', 'refund', 'releaseFromEscrow', 'sale', 'search', 'submitForSettlement', 'void']
