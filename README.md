@@ -2,6 +2,9 @@
 
 A wrapper for Meteor style synchronous Braintree API calls.
 
+# NOTE #
+With Meteor versions >= 1.3 you should now use the npm package directly found [here](https://www.npmjs.com/package/braintree)
+
 ## Example Usage ##
 
 ```javascript
